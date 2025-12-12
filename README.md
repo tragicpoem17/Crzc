@@ -1,8 +1,12 @@
-# DevCrazino Workspace
+# Crzc
+
+SLOTS CREATOR
+
+## DevCrazino Workspace
 
 Starter Node.js workspace scaffold.
 
-Getting started
+## Getting Started
 
 - Install dependencies: `npm install`
 - Run tests: `npm test`
