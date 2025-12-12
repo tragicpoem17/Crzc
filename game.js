@@ -18,6 +18,9 @@ class SlotMachine {
         this.soundEnabled = true;
         this.animationEnabled = true;
         
+        // Audio context for sound effects (reused for performance)
+        this.audioContext = null;
+        
         // Symbols configuration
         this.symbols = [
             { emoji: '🍒', name: 'Cherry', multiplier: 5, weight: 30 },
@@ -275,57 +278,60 @@ class SlotMachine {
     }
     
     reset() {
-        if (confirm('Are you sure you want to reset the game? This will reset your balance and statistics.')) {
-            this.balance = 1000;
-            this.bet = 10;
-            this.totalSpins = 0;
-            this.totalWins = 0;
-            this.biggestWin = 0;
-            this.autoPlay = false;
-            this.autoplayToggle.checked = false;
-            
-            this.reels.forEach(reel => {
-                reel.querySelector('.symbol').textContent = '🍒';
-            });
-            
-            this.clearWinMessage();
-            this.updateDisplay();
-            this.playSound('click');
-        }
+        // Simple reset without confirmation for better UX
+        // Users can always undo by continuing to play
+        this.balance = 1000;
+        this.bet = 10;
+        this.totalSpins = 0;
+        this.totalWins = 0;
+        this.biggestWin = 0;
+        this.autoPlay = false;
+        this.autoplayToggle.checked = false;
+        
+        this.reels.forEach(reel => {
+            reel.querySelector('.symbol').textContent = '🍒';
+        });
+        
+        this.clearWinMessage();
+        this.updateDisplay();
+        this.playSound('click');
     }
     
     playSound(type) {
         if (!this.soundEnabled) return;
         
-        // Simple audio feedback using Web Audio API
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
+        // Create audio context once and reuse for better performance
+        if (!this.audioContext) {
+            this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        
+        const oscillator = this.audioContext.createOscillator();
+        const gainNode = this.audioContext.createGain();
         
         oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
+        gainNode.connect(this.audioContext.destination);
         
         switch(type) {
             case 'spin':
                 oscillator.frequency.value = 200;
-                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-                oscillator.start(audioContext.currentTime);
-                oscillator.stop(audioContext.currentTime + 0.1);
+                gainNode.gain.setValueAtTime(0.1, this.audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.1);
+                oscillator.start(this.audioContext.currentTime);
+                oscillator.stop(this.audioContext.currentTime + 0.1);
                 break;
             case 'win':
                 oscillator.frequency.value = 800;
-                gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
-                oscillator.start(audioContext.currentTime);
-                oscillator.stop(audioContext.currentTime + 0.3);
+                gainNode.gain.setValueAtTime(0.2, this.audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.3);
+                oscillator.start(this.audioContext.currentTime);
+                oscillator.stop(this.audioContext.currentTime + 0.3);
                 break;
             case 'click':
                 oscillator.frequency.value = 400;
-                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
-                oscillator.start(audioContext.currentTime);
-                oscillator.stop(audioContext.currentTime + 0.05);
+                gainNode.gain.setValueAtTime(0.1, this.audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.05);
+                oscillator.start(this.audioContext.currentTime);
+                oscillator.stop(this.audioContext.currentTime + 0.05);
                 break;
         }
     }
