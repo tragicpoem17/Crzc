@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AYE SLOTS GAME CREATOR</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎰 AYE SLOTS GAME CREATOR 🎰</h1>
+            <p class="subtitle">Create and Play Your Own Slot Machine Game!</p>
+        </header>
+
+        <div class="game-area">
+            <!-- Slot Machine Display -->
+            <div class="slot-machine">
+                <div class="display-panel">
+                    <div class="balance-display">
+                        <span class="label">Balance:</span>
+                        <span id="balance" class="value">$1000</span>
+                    </div>
+                    <div class="bet-display">
+                        <span class="label">Bet:</span>
+                        <span id="bet-amount" class="value">$10</span>
+                    </div>
+                </div>
+
+                <div class="reels-container">
+                    <div class="reel" id="reel1">
+                        <div class="symbol">🍒</div>
+                    </div>
+                    <div class="reel" id="reel2">
+                        <div class="symbol">🍒</div>
+                    </div>
+                    <div class="reel" id="reel3">
+                        <div class="symbol">🍒</div>
+                    </div>
+                </div>
+
+                <div class="win-message" id="win-message"></div>
+
+                <div class="controls">
+                    <div class="bet-controls">
+                        <button id="bet-decrease" class="btn btn-small">-</button>
+                        <span class="bet-label">Adjust Bet</span>
+                        <button id="bet-increase" class="btn btn-small">+</button>
+                    </div>
+                    <button id="spin-button" class="btn btn-spin">SPIN</button>
+                    <button id="reset-button" class="btn btn-reset">RESET</button>
+                </div>
+            </div>
+
+            <!-- Game Creator Panel -->
+            <div class="creator-panel">
+                <h2>🎨 Game Customization</h2>
+                
+                <div class="customization-section">
+                    <h3>Symbol Settings</h3>
+                    <div class="symbol-grid">
+                        <div class="symbol-item">
+                            <span class="symbol-display">🍒</span>
+                            <span>Cherry (5x)</span>
+                        </div>
+                        <div class="symbol-item">
+                            <span class="symbol-display">🍋</span>
+                            <span>Lemon (10x)</span>
+                        </div>
+                        <div class="symbol-item">
+                            <span class="symbol-display">🍊</span>
+                            <span>Orange (15x)</span>
+                        </div>
+                        <div class="symbol-item">
+                            <span class="symbol-display">🍇</span>
+                            <span>Grape (20x)</span>
+                        </div>
+                        <div class="symbol-item">
+                            <span class="symbol-display">🍉</span>
+                            <span>Melon (25x)</span>
+                        </div>
+                        <div class="symbol-item">
+                            <span class="symbol-display">⭐</span>
+                            <span>Star (50x)</span>
+                        </div>
+                        <div class="symbol-item">
+                            <span class="symbol-display">💎</span>
+                            <span>Diamond (100x)</span>
+                        </div>
+                        <div class="symbol-item">
+                            <span class="symbol-display">🎰</span>
+                            <span>Jackpot (500x)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="customization-section">
+                    <h3>Game Statistics</h3>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Total Spins:</span>
+                            <span id="total-spins" class="stat-value">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Total Wins:</span>
+                            <span id="total-wins" class="stat-value">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Biggest Win:</span>
+                            <span id="biggest-win" class="stat-value">$0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Win Rate:</span>
+                            <span id="win-rate" class="stat-value">0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="customization-section">
+                    <h3>Game Options</h3>
+                    <div class="options">
+                        <label class="option-item">
+                            <input type="checkbox" id="sound-toggle" checked>
+                            <span>Sound Effects</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" id="animation-toggle" checked>
+                            <span>Animations</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" id="autoplay-toggle">
+                            <span>Auto Play</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2024 AYE SLOTS GAME CREATOR - Created for Software Development</p>
+        </footer>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
